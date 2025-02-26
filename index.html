@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="index.css" rel="stylesheet">
+    <title>Mouth Project</title>
+</head>
+<body>
+    <main>
+        <ul id ="listOfThings">
+            <li draggable="true" ><img src="Banana.png" width="200px" id="banana" ></li>
+            <li draggable="true" ><img src="Strawberry.png" id="strawberry"></li>
+        </ul>
+        <img src="Open_Mouth.png" width="500px" id="mouth">
+        <div id="text">
+            <p id="mouthText">"Me hungry! Feed Me!"</p>
+        </div>
+    </main>
+
+    <script>
+        const banana = document.getElementById("banana");
+        const strawberry = document.getElementById("strawberry");
+        const mouth = document.getElementById("mouth");
+        const text = document.getElementById("mouthText");
+        mouth.addEventListener("dragover", dragOverHandler);
+        mouth.addEventListener("drop", dropHandler);
+        banana.addEventListener("dragstart", dragStartHandler);
+        banana.addEventListener("dragend", dragEndHandler);
+        strawberry.addEventListener("dragstart", dragStartHandler);
+        strawberry.addEventListener("dragend", dragEndHandler);
+
+        function dropHandler(event){
+            event.preventDefault();
+            const draggedItemId = event.dataTransfer.getData("text/plain");
+
+            if(draggedItemId === "banana"){
+                banana.style.visibility = "hidden";
+                text.innerText = "\"NOM NOM NOM! I LIKE BANANAS\"";
+            }
+            if(draggedItemId === "strawberry"){
+                strawberry.style.visibility = "hidden";
+                text.innerText = "\"MMM STRAWBERRY YUMMY\"";
+            }
+        }        
+
+        function dragOverHandler(event){
+            event.preventDefault();
+        }
+
+        function dragStartHandler(event){
+            event.target.style.opacity = "0";
+            event.dataTransfer.setData("text/plain", event.target.id);
+        }
+
+        function dragEndHandler(event){
+            event.target.style.opacity = "1";
+        }
+
+        
+
+    </script>
+</body>
+</html>
